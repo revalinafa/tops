@@ -1,3 +1,39 @@
+<?php 
+include 'koneksi.php';
+    
+if (isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password']; 
+    
+    if($username == "admin" && $password =="admin"){
+        header("Location: dashboard.php");
+        session_start();
+        $_SESSION["username"]="admin";
+        exit();
+    }
+
+    $query = "SELECT password FROM user WHERE nama='$username' or email='$username'";
+    $result = mysqli_query($conn, $query);
+    
+    if ($result) {
+        $result2 = mysqli_fetch_assoc($result);
+        if ($result2) {
+            if ($result2["password"] == $password) {
+             
+                header("Location: home.php");
+                session_start();
+                $_SESSION["username"]=$_POST["username"];
+                exit();
+            } else {
+                echo "<script> alert('Invalid password!'); </script>";
+            }
+        } else {
+            echo "<script> alert('Nama atau Email sudah digunakan'); </script>";
+        }
+    }
+}
+?>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -159,8 +195,8 @@
         <form action="login.php" method="post">
           <div class="input-box">
             <span class="icon"><i data-feather="mail"></i></span>
-            <input type="email" name="email" required />
-            <label>Email</label>
+            <input type="text" name="username" required />
+            <label>Nama atau Email</label>
           </div>
           <div class="input-box">
             <span class="icon"><i data-feather="lock"></i></span>
@@ -170,7 +206,7 @@
           <div class="check">
             <label><input type="checkbox" /> Ingat saya</label>
           </div>
-          <button type="submit" class="btn">Masuk</button>
+          <button type="submit" class="btn" name="login">Masuk</button>
           <div class="register">
             <p>
             Belum punya akun?

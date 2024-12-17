@@ -1,3 +1,44 @@
+<?php 
+include 'koneksi.php';
+$error ="";
+$name="";
+$email="";
+$gender="";
+$tanggallahir="";
+$password="";
+$confirmpassword ="";
+if(isset($_POST['submit'])){
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $gender = $_POST['gender'];
+    $tanggallahir = $_POST['tanggal-lahir'];
+    $password = $_POST['password'];
+    $confirmpassword = $_POST['confirm_password'];
+    if($password == $confirmpassword ){
+        $query = "insert into user values('$name', '$email', '$gender', '$tanggallahir', '$password')";
+        try {
+            mysqli_query($conn,$query);
+            echo "<script>
+                alert('Berhasil registrasi akun');
+                let jawaban = confirm('Ingin lanjut ke menu utama?');
+                if (jawaban) {
+                window.location.href = 'home.php';
+                } else {
+                window.location.href = 'login.php';
+                }
+                </script>";
+        } catch (\Throwable $th) {
+            $error ="username sudah digunakan";
+        }
+    } else {
+        $error ="password tidak sama";
+        echo "
+        <script>alert('$error');</script>";
+        // return false;
+    }
+}
+?>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -144,35 +185,35 @@
         <form action="" method="POST">
           <div class="input-box">
             <span class="icon"><i data-feather="user"></i></span>
-            <input type="text" name="name" required />
+            <input type="text" name="name" required value="<?= $name?>" />
             <label>Nama</label>
           </div>
           <div class="input-box">
             <span class="icon"><i data-feather="mail"></i></span>
-            <input type="email" name="email" required />
+            <input type="email" name="email" required value="<?= $email?>"/>
             <label>Email</label>
           </div>
           <div class="input-box">
             <span class="icon"><i data-feather="mail"></i></span>
-            <input type="gender" name="gender" required />
-            <label>Jenis Kelamin</label>
+            <input type="gender" name="gender" value="<?= $gender?>" required />
+            <label>Jenis Kelamin (Laki-laki/Perempuan) </label>
           </div>
           <div class="input-box">
             <span class="icon"><i data-feather="user"></i></span>
-            <input type="date" name="tanggal-lahir" required placeholder="Tanggal Lahir"/>
+            <input type="date" name="tanggal-lahir" required placeholder="Tanggal Lahir" value="<?= $tanggallahir?>"/>
             
           </div>
           <div class="input-box">
             <span class="icon"><i data-feather="user"></i></span>
-            <input type="password" name="password" required />
+            <input type="password" name="password" required value="<?= $password?>"/>
             <label>Password</label>
           </div>
           <div class="input-box">
             <span class="icon"><i data-feather="lock"></i></span>
-            <input type="password" name="confirm_password" required />
+            <input type="password" name="confirm_password" required value="<?= $confirmpassword?>"/>
             <label>Konfirmasi Password</label>
           </div>
-          <button type="submit" class="btn">Daftar</button>
+          <button type="submit" class="btn" id="submit" name="submit">Daftar</button>
           <div class="register">
             <p>
               Sudah punya akun?
@@ -197,5 +238,6 @@
         });
       });
     </script>
+    <script src="register.js"></script>
   </body>
 </html>
