@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Tampilan</title>
+    <style>
+        .row {
+            display: flex;
+            align-items: center; /* Memastikan semua elemen vertikal sejajar */
+            background-color: #103f5e;
+            color: #ffffff;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        .label {
+            flex: 0 0 120px; /* Lebar tetap untuk label */
+        }
+        .separator {
+            flex: 0 0 10px; /* Lebar tetap untuk ":" */
+        }
+        .content {
+            flex: 1; /* Sisa ruang untuk isi */
+        }
+        .container {
+            width: 400px;
+            margin: auto;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="label">Nama</div>
+            <div class="separator">:</div>
+            <div class="content">Muhammad Ronaldo</div>
+        </div>
+        <div class="row">
+            <div class="label">Email</div>
+            <div class="separator">:</div>
+            <div class="content">ronaldo@email.com</div>
+        </div>
+        <div class="row">
+            <div class="label">Jenis Kelamin</div>
+            <div class="separator">:</div>
+            <div class="content">Laki-laki</div>
+        </div>
+        <div class="row">
+            <div class="label">Tanggal Lahir</div>
+            <div class="separator">:</div>
+            <div class="content">01 Januari 2000</div>
+        </div>
+    </div>
+</body>
+</html>
