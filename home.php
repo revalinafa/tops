@@ -1,3 +1,14 @@
+<?php 
+include "koneksi.php";
+$temp = mysqli_query($conn,"select * from produk");
+$hasil = array ();
+while ($x = mysqli_fetch_assoc($temp)) {
+    array_push($hasil,$x);
+}
+
+// var_dump($hasil);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +17,8 @@
     <title>Document</title>
     
     <!--LINK CSS NYA-->
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/home.css">
 
     <!--LINK FONT GOOGLE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,56 +91,13 @@
                     <button id="prev-slide" class="slide-button material-symbols-rounded">left</button>
 
                     <div class="card-list">
-                        <div class="card">
+                        <?php for ($i = 0; $i < count($hasil); $i++): ?>
+                            <div class="card">
                             <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jorddan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
+                            <h3><?= $hasil[$i]["nama"] ?></h3>
+                            <h4><?= $hasil[$i]["harga"] ?></h4>
                         </div>
-                        <div class="card">
-                            <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/3bbecbdf584e40398446a8bf0117cf62_9366/Samba_OG_Shoes_White_B75806_01_00_standard.jpg" alt="">
-                            <h3>Adidas Samba OG</h3>
-                            <h4>Rp1.999.999,-</h4>
-                        </div>
-                        <div class="card">
-                            <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/4f37fca8-6bce-43e7-ad07-f57ae3c13142/AIR+FORCE+1+%2707.png" alt="">
-                            <h3>Nike Air Force</h3>
-                            <h4>Rp1.999.999,-</h4>
-                        </div>
-                        <div class="card">
-                            <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/b98e67b8-45cf-4bfa-81f8-c1f3ea6461de/AIR+ZOOM+ALPHAFLY+NEXT%25+3+PRM.png" alt="">
-                            <h3>Nike Alphafly 3 Premium</h3>
-                            <h4>Rp4.999.999,-</h4>
-                        </div>
-                        <div class="card">
-                            <img src="https://www.adidas.co.id/media/catalog/product/cache/da73f7d26ad11f1980ada40c1f6e78fa/i/d/id7006_2_footwear_photography_side20lateral20view_grey.jpg" alt="">
-                            <h3>Adidas Gazelle</h3>
-                            <h4>Rp1.999.999,-</h4>
-                        </div>
-                        <div class="card">
-                            <img src="https://www.adidas.co.id/media/catalog/product/cache/a2326ed7dcde4da57fee4197e095ea73/j/h/jh6206_2_footwear_photography_side_lateral_view_grey.jpg" alt="">
-                            <h3>Adidas Evo SL/h3>
-                            <h4>Rp2.999.999,-</h4>
-                        </div>
-                        <div class="card">
-                            <img src="https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/928c7554549b4c2a9a3bdb0fef76cc6d_9366/11Pro_Toni_Kroos_Firm_Ground_Soccer_Cleats_White_ID5136_HM1.jpg" alt="">
-                            <h3>Adidas 11Pro Toni Kross</h3>
-                            <h4>Rp6.999.999,-</h4>
-                        </div>
-                        <div class="card">
-                            <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/c2d09494-b174-489f-9ce8-fed4f1c316c1/JORDAN+STADIUM+90.png" alt="">
-                            <h3>Nike Air Jordan Stadium 90</h3>
-                            <h4>Rp1.999.999,-</h4>
-                        </div>
-                        <div class="card">
-                            <img src="https://www.80scasualclassics.co.uk/blog/wp-content/uploads/2017/09/ADIDAS-MUNCHEN-5.jpg" alt="">
-                            <h3>Adidas Munchen 5</h3>
-                            <h4>1.999.999,-</h4>
-                        </div>
-                        <div class="card">
-                            <img src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1dab2f7a-bbee-4c23-b899-8e24a356763d/NIKE+ZOOMX+VAPORFLY+NEXT%25+3.png" alt="">
-                            <h3>Nike Vaporfly #</h3>
-                            <h4>2.999.999,-</h4>
-                        </div>
+                        <?php endfor; ?>
 
                     </div>
                     <button id="next-slide" class="slide-button material-symbols-rounded">right</button>
@@ -186,98 +154,13 @@
                 </div>
 
                 <div class="katalog-grid">
-
+                <?php for ($i = 0; $i < count($hasil); $i++): ?>
                     <div class="produk-item">
                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
+                        <h3> <?= $hasil[$i]["nama"] ?> </h3>
+                        <h4> <?= $hasil[$i]["harga"] ?> </h4>
                     </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    <div class="produk-item">
-                        <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3>Nike Air Jordan 1 Low</h3>
-                            <h4>Rp1.999.999,-</h4>
-                    </div>
-                    
+                <?php endfor; ?>  
                 </div>
 
             </div>
@@ -332,7 +215,7 @@
 
 
 
-<script src="../js/home.js"></script>
+<script src="js/home.js"></script>
 <script>
     const swiper = new Swiper('.swiper', {
   // Optional parameters
