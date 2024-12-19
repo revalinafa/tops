@@ -60,3 +60,70 @@ const initSlider = () => {
 }
 
 window.addEventListener("load", initSlider);
+
+const produks = document.querySelectorAll(".product-item");
+
+function detailproduk(e){
+    let id =e.currentTarget.dataset.id;
+    window.location.href = `produk.php?id=${id}`;
+    // console.log(id);
+}
+
+produks.forEach(produk => {
+    produk.addEventListener("click",detailproduk);
+});
+
+    function filterProducts() {
+        // Ambil semua checkbox yang dicentang
+        const checkedCategories = Array.from(
+            document.querySelectorAll('.filter-content input[type="checkbox"]:checked')
+        ).map(checkbox => checkbox.value);
+
+        // Ambil semua elemen produk
+        const products = document.querySelectorAll('.product-item');
+
+        // Tampilkan atau sembunyikan produk berdasarkan kategori
+        products.forEach(product => {
+            const category = product.getAttribute('data-category');
+            if (checkedCategories.length === 0 || checkedCategories.includes(category)) {
+                product.style.display = "block"; // Tampilkan produk
+            } else {
+                product.style.display = "none"; // Sembunyikan produk
+            }
+        });
+    }
+
+    // Pasang event listener pada semua checkbox
+    document.querySelectorAll('.filter-content input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', filterProducts);
+    });
+
+
+    document.getElementById('shoe-category').addEventListener('change', function () {
+        const sortBy = this.value; // Opsi yang dipilih
+        const productsContainer = document.querySelector('.katalog-grid');
+        const products = Array.from(productsContainer.children); // Semua produk
+        
+        // Fungsi untuk membandingkan elemen berdasarkan kriteria
+        const compare = (a, b) => {
+            if (sortBy === "Murah") {
+                return parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price'));
+            } else if (sortBy === "A-Z") {
+                return a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+            } else if (sortBy === "Z-A") {
+                return b.getAttribute('data-name').localeCompare(a.getAttribute('data-name'));
+            } else if (sortBy === "Mahal") {
+                return parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price'));
+            } 
+            return 0; // Default
+        };
+
+        // Urutkan elemen
+        products.sort(compare);
+
+        // Hapus elemen lama dari DOM dan tambahkan yang sudah diurutkan
+        productsContainer.innerHTML = '';
+        products.forEach(product => productsContainer.appendChild(product));
+    });
+
+

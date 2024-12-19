@@ -12,3 +12,16 @@ create view lihatproduk as select id,nama,tipe,harga,poto from produk;
 select * from lihatproduk;
 
 create view detailproduk as select a.*, b.stock from lihatproduk a join detail b on a.id = b.idproduk;
+
+create table ukuran (
+     idproduk char(5),
+     warna varchar(20),
+     size char(2),
+     primary key (idproduk,warna,size),
+     foreign key (idproduk,warna) references warna(idproduk,warna)
+     );
+
+insert into warna values ("NK001", "Hitam"),("NK001", "Putih"),("NK001", "Abu");
+insert into ukuran values ("NK001", "Hitam", "25"), ("NK001", "Hitam", "26"),("NK001", "Hitam", "27");
+
+create view detailproduks as select a.*, b.warna, b.size, b.stock from lihatproduk a join ukuran b on a.id = b.idproduk;

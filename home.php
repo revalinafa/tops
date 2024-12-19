@@ -5,8 +5,6 @@ $hasil = array ();
 while ($x = mysqli_fetch_assoc($temp)) {
     array_push($hasil,$x);
 }
-
-// var_dump($hasil);
 ?>
 
 <!DOCTYPE html>
@@ -130,23 +128,22 @@ while ($x = mysqli_fetch_assoc($temp)) {
                         <div class="filter-btn" onclick="togglefilter()">FILTER &#9662;</div>
                         <div class="filter-content">
                             <label><input type="checkbox" value="Men"> Men </label>
-                            <label><input type="checkbox" value="Women"> Women </label>
-                            <label><input type="checkbox" value="Daily"> Daily </label>
-                            <label><input type="checkbox" value="Running"> Running </label>
-                            <label><input type="checkbox" value="Football"> Football </label>
-                            <label><input type="checkbox" value="Outdoor"> Outdoor </label>
-                            <label><input type="checkbox" value="Indoor"> Indoor </label>
+                            <label><input type="checkbox" value="Women" > Women </label>
+                            <label><input type="checkbox" value="Daily" > Daily </label>
+                            <label><input type="checkbox" value="Running" > Running </label>
+                            <label><input type="checkbox" value="Football" > Football </label>
+                            <label><input type="checkbox" value="Outdoor" > Outdoor </label>
+                            <label><input type="checkbox" value="Indoor" > Indoor </label>
                         </div>
                     </div>
 
                     <div class="sort">
                         <div class="filter-btn">
                         <select id="shoe-category" name="shoe-category" class="sort-content">
-                            <option value="Price">PRICE</option>
+                            <option value="Murah">Rendah ke Tinggi</option>
+                            <option value="Mahal">Tinggi ke Rendah</option>
                             <option value="A-Z">A-Z</option>
                             <option value="Z-A">Z-A</option>
-                            <option value="Size">SIZE</option>
-                            <option value="Stock">STOCK</option>
                         </select>
                         </div>
                     </div>
@@ -155,7 +152,8 @@ while ($x = mysqli_fetch_assoc($temp)) {
 
                 <div class="katalog-grid">
                 <?php for ($i = 0; $i < count($hasil); $i++): ?>
-                    <div class="produk-item">
+                    <div class="product-item" data-id ="<?=$hasil[$i]["id"]?>" data-category="<?= $hasil[$i]["tipe"]?>" data-price="<?= $hasil[$i]['harga'] ?>" 
+             data-name="<?= $hasil[$i]['nama'] ?>" >
                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
                         <h3> <?= $hasil[$i]["nama"] ?> </h3>
                         <h4> <?= $hasil[$i]["harga"] ?> </h4>
