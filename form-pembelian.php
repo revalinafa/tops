@@ -15,6 +15,11 @@ while ($x = mysqli_fetch_assoc($temp)) {
 if (isset($_POST["search"])) {
     header("Location: home.php");
 } 
+
+if (isset($_POST["bayer"])) {
+    var_dump($_POST["nomor-handphone"]);
+}
+
 ?>
 
 
@@ -94,23 +99,13 @@ if (isset($_POST["search"])) {
     <div class="form-pembelian">
         <div class="baris">
 
-            <div class="form-data-user">
+            <form class="form-data-user" method="post" action="form-pembelian.php">
                 <h3>Alamat Penerima</h3>
                 <input type="text" id="nama" placeholder="Nama">
-                <input type="text" id="nomor-handphone" placeholder="No Handphone">
-                <!-- <select id="provinsi" onchange="updateKota()">
-                    <option value="">Pilih Provinsi</option>
-                </select>
-                <select id="kota" onchange="updateKecamatan()">
-                    <option value="">Pilih Kota/Kabupaten</option>
-                </select>
-                <select id="kecamatan">
-                    <option value="">Pilih Kecamatan</option>
-                </select>
-                <input type="text" id="Kode-pos" placeholder="Kode-pos">
-                <input type="text" id="RT/RW" placeholder="RT/RW"> -->
+                <input type="text" name="nomor-handphone" id="nomor-handphone" placeholder="No Handphone" >
+                <input type="submit" name="bayer" id="nomor-handphone" placeholder="No Handphone">
                 <textarea name="detail-alamat" id="detail-alamat" placeholder="Alamat"></textarea>
-            </div>
+            </form>
  
             <div class="form-data-produk">
                 <h3>Pesanan Anda</h3>  
@@ -181,7 +176,7 @@ if (isset($_POST["search"])) {
                     </table>
                     <div class="last-btn">
                         <div class="bayar-sekarang">
-                            <h3>Bayar Sekarang</h3>
+                            <h3 id="bayar">Bayar Sekarang</h3>
                         </div>
                         <div class="kembali">
                             <h3>kembali</h3>
@@ -300,6 +295,27 @@ document.getElementById("pilih").addEventListener("click",function(){
     cekouts[2].textContent = subtotalproduk + 15000;
 });
 
+</script>
+<script>
+    let keranjang = document.getElementById("bayar");
+
+    // Fungsi untuk menambah ke keranjang
+    keranjang.addEventListener("click", tambahpembelian);
+
+    function tambahpembelian() {
+        // Kirim data ke server menggunakan AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "tambahpembelian.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                alert(xhr.responseText);
+            }
+        };
+
+        // Kirim data (nama, email, idproduk, warna, size)
+        xhr.send(`warna=${warna}&size=${size}&idproduk=<?= $id; ?>`);
+    }
 </script>
 </body>
 </html>

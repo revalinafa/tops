@@ -143,9 +143,11 @@ if (isset($_POST["search"])) {
                             </div>
                             <div class="total-harga"> <?= $x["harga"] ?> </div>
                             <div class="Aksi">
+                                <a href="keranjanghapus.php?nama=<?=$x["nama"]?>&email=<?=$x["email"]?>&idproduk=<?=$x["idproduk"]?>&warna=<?=$x["warna"]?>&size=<?=$x["size"]?>  ">
                                 <div class="delete-btn">
                                     <i data-feather="trash-2"></i>
                                 </div>
+                                </a>
                             </div>
                         </div>
                     <?php endforeach; ?>

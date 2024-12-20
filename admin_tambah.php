@@ -14,7 +14,10 @@ if (isset($_POST["tambah"])) {
 
     $query = "insert into $idadmin values ('$id', '$nama','$tipe','$harga','$deskripsi','$poto')";
     $hasil = mysqli_query($conn,$query);
-    echo "<script> alert('Data berhasil ditambah')";
+    echo "<script> alert('Data berhasil ditambah');
+            window.location.href = 'admin_produk.php';        
+    </script>";
+    exit();
 }
 
 // try {

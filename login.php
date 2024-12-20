@@ -6,7 +6,7 @@ if (isset($_POST['login'])) {
     $password = $_POST['password']; 
     
     if($username == "admin" && $password =="admin"){
-        header("Location: dashboard.php");
+        header("Location: admin_produk.php");
         session_start();
         $_SESSION["username"]="admin";
         exit();
@@ -29,7 +29,7 @@ if (isset($_POST['login'])) {
                 echo "<script> alert('Invalid password!'); </script>";
             }
         } else {
-            echo "<script> alert('Nama atau Email sudah digunakan'); </script>";
+            echo "<script> alert('Nama atau Email tidak ditemukan'); </script>";
         }
     }
 }

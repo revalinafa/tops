@@ -101,11 +101,18 @@ if (!empty($search_term)) {
                     <button id="prev-slide" class="slide-button material-symbols-rounded">left</button>
 
                     <div class="card-list">
-                        <?php for ($i = 0; $i < count($hasil); $i++): ?>
+                        <?php 
+                        $best = array();
+                         $temp = mysqli_query($conn, "SELECT * FROM produk");
+                         while ($x = mysqli_fetch_assoc($temp)) {
+                             array_push($best, $x);
+                         }
+                        ?>
+                        <?php for ($i = 0; $i < 7; $i++): ?>
                             <div class="card">
                             <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
-                            <h3><?= $hasil[$i]["nama"] ?></h3>
-                            <h4><?= formatRupiah($hasil[$i]["harga"]) ?></h4>
+                            <h3><?= $best[$i]["nama"] ?></h3>
+                            <h4><?= formatRupiah($best[$i]["harga"]) ?></h4>
                         </div>
                         <?php endfor; ?>
 

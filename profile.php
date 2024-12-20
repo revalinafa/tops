@@ -274,6 +274,7 @@ if (isset($_POST['confirmButton'])) {
 </script>
 <script>
     feather.replace();
-</script>    
+</script>   
+<script src="js/link.js"></script> 
 </body>
 </html>
