@@ -4,6 +4,12 @@ include "function.php";
 session_start();
 $nama = $_SESSION["nama"];
 $email = $_SESSION["email"];
+
+if (!isset($_SESSION["nama"])) {
+    header("Location: home.php");
+    # code...
+}
+
 $query = " select a.*, b.harga,b.nama as nama_produk from keranjang a join produk b on a.idproduk = b.id where a.nama='$nama' and a.email='$email'";
 // $temp = mysqli_query($conn,"select * from keranjang where nama='$nama' and email='$email'");
 $temp = mysqli_query($conn,$query);

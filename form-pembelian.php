@@ -98,7 +98,7 @@ if (isset($_POST["search"])) {
                 <h3>Alamat Penerima</h3>
                 <input type="text" id="nama" placeholder="Nama">
                 <input type="text" id="nomor-handphone" placeholder="No Handphone">
-                <select id="provinsi" onchange="updateKota()">
+                <!-- <select id="provinsi" onchange="updateKota()">
                     <option value="">Pilih Provinsi</option>
                 </select>
                 <select id="kota" onchange="updateKecamatan()">
@@ -108,8 +108,8 @@ if (isset($_POST["search"])) {
                     <option value="">Pilih Kecamatan</option>
                 </select>
                 <input type="text" id="Kode-pos" placeholder="Kode-pos">
-                <input type="text" id="RT/RW" placeholder="RT/RW">
-                <textarea name="detail-alamat" id="detail-alamat">Detail-Alamat</textarea>
+                <input type="text" id="RT/RW" placeholder="RT/RW"> -->
+                <textarea name="detail-alamat" id="detail-alamat" placeholder="Alamat"></textarea>
             </div>
  
             <div class="form-data-produk">
