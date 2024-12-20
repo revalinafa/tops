@@ -51,10 +51,10 @@ if (isset($_POST["search"])) {
         <div class="header-right">
 
             <div class="search-container">
-            <div class="search-con">
+                <div class="search-con">
                 <form method="GET" action="home.php" id="searchForm">
-    <input type="text" name="search" id="search" placeholder="Search for products" value="<?php echo isset($nama_produk) ? $nama_produk : ''; ?>" oninput="submitForm()">
-</form>
+                    <input type="text" name="search" id="search" placeholder="Search for products" value="<?php echo isset($nama_produk) ? $nama_produk : ''; ?>" oninput="submitForm()">
+                </form>
                     <label for="search">
                         <i data-feather="search"></i>
                     </label>
@@ -243,6 +243,6 @@ if (isset($_POST["search"])) {
 <script>
     feather.replace();
 </script>    
-<script src="link.js"></script>
+<script src="js/link.js"></script>
 </body>
 </html>

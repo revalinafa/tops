@@ -41,7 +41,6 @@ body{
     height: 90%;
 }
 
-
 .search-container{
     display: flex;
     align-items: center;
@@ -152,157 +151,234 @@ body{
 
 
 .main{
-    min-height: 15vh;
+    height: 75vh;
 }
 
 .baris{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 80%;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: 30% 65%;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: center;
 }
 
-.profile{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.form-pembelian{
     width: 100%;
 }
 
-.judul-profil{
-    font-size: 40px;
-    font-weight: 400;
-    margin-top: 100px;
-}
-
-.judul-profil h3{
-    font-weight: 700;
-}
-
-.detail-profil{
+.form-data-user{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 60%;
+    gap: 5px;
+    padding: 20px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
 }
 
-.top{
-    display: grid;
-    grid-template-columns: auto 1fr; /* Kolom pertama auto, kolom kedua sisa */
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    width: 100%;
-    margin: 50px auto 85px;
+.form-data-user h3{
+    font-size: 30px;
+    font-weight: 600;
 }
 
-.left{
-    position: relative;
-    width: 250px;
-    height: 250px;
-    overflow: hidden;
-    border-radius: 50%;
+.form-data-user input,
+.form-data-user select{
+    height: 45px;
+    padding-left: 20px;
+    border-radius: 5px;
 }
 
-.left img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
+.form-data-user select{
     border: 2px solid black;
 }
 
-.foto-profile-con{
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translate(-50%, 50%);
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    width: 150px;
+.form-data-user textarea{
+    border: 2px solid black;
+}
+.form-data-user textarea{
     height: 100px;
+    padding-left: 20px;
     padding-top: 10px;
-    color: #ffffff;
-    background-color: #062743;
-    border-radius: 50%;
+    border-radius: 5px;
+    border: 2   px solid black;
 }
 
-.right{
-    flex: 450px;
-}
-
-.detail-con{
+.form-data-produk{
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     width: 100%;
+    min-width: 1000px;
+    background-color: #D9D9D9;
+    padding: 20px;
+    margin: 0 auto;
 }
 
-.data-user{
-    display: grid;
-    grid-template-columns: 30% auto; /* Atur lebar kolom */
-    background-color: #062743;
-    color: #ffffff;
-    padding: 10px 20px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-}
-
-.data-user input{
-    background-color: rgba(255, 255, 255, 0);
-}
-
-input[disabled] {
-    background-color: transparent; /* Hilangkan background */
-    color: inherit; /* Gunakan warna teks sesuai dengan konteks */
-    border: none; /* Hilangkan border */
-    font-size: inherit; /* Samakan ukuran font dengan elemen lain */
-    font-family: inherit; /* Samakan jenis font */
-    padding: 0; /* Hilangkan padding */
-    margin: 0; /* Hilangkan margin */
-    outline: none; /* Hilangkan outline saat di-klik */
-}
-
-
-
-.edit-con{
+.tabel-data-produk{
+    width: 100%;
+    min-width: 900px;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column; 
+    background-color: white;
+    border: 3px solid #062743;
 }
 
-.edit-profile,
-.submit-profile{
+.tabel-produk-header{
+    display: grid;
+    grid-template-columns: 50px 45% 15% 15% auto;
+    width: 100%;
+    min-width: 900px;
+    text-align: center;
+    border-bottom: 3px solid #062743;
+
+}
+
+
+
+.tabel-produk-body{
+    display: grid;
+    grid-template-columns: 50px 45% 15% 15% auto;
+    width: 100%;
+    min-width: 900px;
+    text-align: center;
+
+}
+
+.nama-produk-body{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 20px;
+}
+
+.produk-pic{
+    width: 150px;
+    height: 100px;
+    padding: 15px  0;
+    overflow: hidden;
+}
+
+.produk-pic img{
+    width: 100%;
+    height: 70px;
+    object-fit: cover;
+}
+
+.produk-detail{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.produk-detail h3{
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.nomor-body,
+.harga-produk-body ,
+.jumlah-produk-body, 
+.subtotal-body{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px 20px;
-    background-color: #0a4578;
-    box-shadow: 0 10px 0 rgba(6, 39, 67, 0.95);
-    color: white;
-    border-radius: 10px;
-    margin-left: 20px;
+}
+.nomor-body h3,
+.harga-produk-body  h3,
+.jumlah-produk-body h3, 
+.subtotal-body h3{
+    font-size: 15px;
+    font-weight: 400;
 }
 
-.edit-profile:active,
-.submit-profile:active{
-    box-shadow: 0 5px 0 rgba(6, 39, 67, 0.95);
+.pengiriman-con{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.pengiriman-item{
+    width: 100%;
+    min-width: 900px;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25% ;
+    align-items: center;
+    justify-content: center;
+    background-color: #9e9c9c;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.pilih{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pilih-con{
+    width: 60%;
+    background-color: rgb(51, 51, 51);
+    color: white;
+    box-shadow: 0 10px  black;
+    border-radius: 5px;
+}
+
+.pilih-con:active{
+    box-shadow: 0 5px black;
     transform: translateY(5px);
 }
 
-
-
-.emailInput,
-.nameInput{
-    width: 90%;
-    color: white;
+.last{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 50px 0 0;
 }
 
+.last-btn{
+    display: flex;
+    flex-direction: row;
+}
 
+.kembali{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #5c281d;
+    color: white;
+    padding: 10px 30px;
+    box-shadow: 0 10px  #430d06;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
+.kembali:active{
+    box-shadow: 0 5px #430d06;
+    transform: translateY(5px);
+}
 
+.bayar-sekarang{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1d3e5c;
+    color: white;
+    padding: 10px 30px;
+    margin-right: 20px;
+    box-shadow: 0 10px  #062743;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-
+.bayar-sekarang:active{
+    box-shadow: 0 5px #041729;
+    transform: translateY(5px);
+}
 
 
 

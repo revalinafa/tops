@@ -15,17 +15,6 @@ if (!empty($search_term)) {
         array_push($hasil, $x);
     }
 }
-
-// if (isset($_POST["search"])) {
-//     $nama_produk = $_POST["search"];
-//     $hasil = cari($nama_produk);
-// } else {
-//     $temp = mysqli_query($conn,"select * from produk");
-//     while ($x = mysqli_fetch_assoc($temp)) {
-//         array_push($hasil,$x);
-//     }
-// }
-// var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>

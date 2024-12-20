@@ -38,3 +38,30 @@ create table keranjang (
  );
 
  select a.*, b.harga from keranjang a join produk b on a.idproduk = b.id;
+
+insert into produk values 
+("NK006", "Air Jordan 1 Low 'Game Royal'","Men", 1000000,"The Air Jordan 1 Low OG remakes the classic sneaker with new colors and textures. Premium materials and accents give fresh expression to an all-time favorite.", "NK001.png"),
+("NK007", "Air Jordan 5 Retro 'White and Black'","Men", 1000000,"Get your piece of Jordan history and heritage with the Air Jordan 5 Retro. Based on the classic game shoe from 1990, it has all the iconic details, including the bump-out collar, lace toggle and fighter plane-inspired design lines.", "NK002.png"),
+("NK008", "Nike Air Max 80","Men", 1500000,"Lace up and feel the legacy. Produced at the intersection of art, music and culture, this champion running shoe helped define the ‘90s. Worn by presidents, revolutionized through collabs and celebrated through rare colorways, its striking visuals, Waffle outsole, and exposed Air cushioning keep it alive and well.", "NK003.png"),
+("NK009", "Nike Free Run Flyknit 2018","Men", 2000000,"Made for short runs when you want a barefoot-like feel, the Nike Free Run 2018 feels super light and flexible. Its sock-like upper has more stretch yarns than previous versions, so it hugs your feet more than ever. The innovative sole has an updated construction, yet still expands and contracts with every movement. The packable design makes the shoe easy to stuff into your bag—so you can get in a few miles on the fly.", "NK004.png"),
+("NK010", "NIke Air Max 270","Running", 1500000,"Nike's first lifestyle Air Max brings you style, comfort and big attitude in the Nike Air Max 270. The design draws inspiration from Air Max icons, showcasing Nike's greatest innovation with its large window and fresh array of colors.", "NK005.png")
+;
+
+create table pembelian (
+     nama VARCHAr (50),
+     email varchar (50),
+
+     
+)
+
+| keranjang | CREATE TABLE `keranjang` (
+  `nama` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `idproduk` char(5) NOT NULL,
+  `warna` varchar(20) NOT NULL,
+  `size` char(2) NOT NULL,
+  PRIMARY KEY (`nama`,`email`,`idproduk`,`warna`,`size`),
+  KEY `idproduk` (`idproduk`,`warna`,`size`),
+  CONSTRAINT `keranjang_ibfk_1` FOREIGN KEY (`nama`, `email`) REFERENCES `user` (`nama`, `email`) ON UPDATE CASCADE,
+  CONSTRAINT `keranjang_ibfk_2` FOREIGN KEY (`idproduk`, `warna`, `size`) REFERENCES `ukuran` (`idproduk`, `warna`, `size`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |

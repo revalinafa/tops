@@ -1,0 +1,279 @@
+body {
+  font-family: "Poppins", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    padding: 0 ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #062743;
+    z-index: 999;
+}
+
+.header-con{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left{
+    color: aquamarine;
+    font-size: 25px;
+}
+
+.header-mid{
+    color: white;
+    font-size: 30px;
+}
+
+.header-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 50px;
+    background-color: rgb(255, 213, 0);
+    border-radius: 5px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 70px;
+    background-color: #054379;
+    height: 100vh;
+    width: 90px;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.sidebar:hover {
+    width: 220px; /* Melebar saat di-hover */
+}
+
+.sidebar-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 50px 10px ;
+    gap: 5px;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    height: 50px;
+    width: 200px;
+    cursor: pointer;
+}
+
+.sidebar-item svg {
+    width: 24px;
+    height: 24px;
+}
+
+.sidebar-item.svg svg{
+    width: 30px;
+    height: 30px;
+}
+
+.sidebar-item p {
+    max-height: 0; /* Awalnya disembunyikan */
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Ketika sidebar diperluas */
+.sidebar:hover .sidebar-item p {
+    max-height: 50px; /* Atur sesuai ukuran teks */
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sidebar-item:hover{
+  background-color: #062743;
+  color: white ;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Efek glow */
+  border-radius: 10px;
+  fill: white;
+}
+
+.sidebar-item svg {
+  fill: white;  /* Warna default untuk ikon */
+  transition: fill 0.3s ease;  /* Animasi transisi warna */
+}
+
+.sidebar-item.svg svg{
+    margin-top: -10px;
+}
+
+
+.main{
+
+    padding: 100px 0 100px 90px;
+    width: 100%;
+    height: 100vh;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 30px;
+    width: 70%;
+    height: 30vh;
+    margin: 0 auto;
+}
+
+.top{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.top h3{
+    font-size: 25px;
+}
+
+
+.table-user{
+    display: flex;
+    flex-direction: column;
+}
+
+.table-header div{
+    border: 2px solid black;
+}
+
+.table-header{
+    display: grid;
+    grid-template-columns: 60px 45% 28%  auto ;
+    width: 100%;
+    min-width: 1000px;
+    text-align: center;
+}
+
+.table-body-con{
+    width: 100%;
+    min-width: 1000px;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-body{
+    display: grid;
+    grid-template-columns: 60px 45% 28%  auto ;
+    width: 100%;
+    min-width: 1000px;
+    text-align: center;
+}
+
+.table-body div{
+    border: 2px solid black;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.action-body div{
+    padding: 5px;
+    background-color: #062743;
+    color: white;
+    border-radius: 3px;
+}
+
+.status-active, 
+.status-banned{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 30px;
+    border: 0;
+}
+
+.status-active{
+    background-color: #56e73c;
+}
+
+.status-banned{
+    background-color: #e74c3c;
+}
+
+
+.popup-delete {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-delete-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.popup-delete-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.popup-delete-cancel {
+    background-color: #ccc;
+    color: #333;
+}
+
+.popup-delete-confirm {
+    background-color: #e74c3c;
+    color: white;
+}

@@ -1,3 +1,25 @@
+<?php 
+include "koneksi.php";
+include "function.php";
+session_start();
+$nama = $_SESSION["nama"];
+$email = $_SESSION["email"];
+$query = "select *  from user where nama='$nama' and email='$email' ";
+// $temp = mysqli_query($conn,"select * from keranjang where nama='$nama' and email='$email'");
+$temp = mysqli_query($conn,$query);
+$hasil = array();
+while ($x = mysqli_fetch_assoc($temp)) {
+    array_push($hasil,$x);
+}
+
+if (isset($_POST["search"])) {
+    header("Location: home.php");
+} 
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,11 +53,13 @@
 
             <div class="search-container">
                 <div class="search-con">
-                    <input type="text" id="search">
-                    <label for="search">
-                        <i data-feather="search"></i>
-                    </label>
-                </div>
+                    <form method="GET" action="home.php" id="searchForm">
+        <input type="text" name="search" id="search" placeholder="Search for products" value="<?php echo isset($nama_produk) ? $nama_produk : ''; ?>" oninput="submitForm()">
+    </form>
+                        <label for="search">
+                            <i data-feather="search"></i>
+                        </label>
+                    </div>
             </div>
 
             <div class="header-icon-con">
@@ -90,30 +114,38 @@
                         </div>
                     </div>
 
-                    <div class="right">
+                    <form class="right">
                         <div class="detail-con">
                             <div class="data-user">
-                                <div class="label">Nama</div>
-                                <div class="separator">:</div>
-                                <div class="content">Muhammad Ronaldo</div>
+                                <div class="label"><label for="nameInput">Nama</label></div>
+                                <div class="nama-user">: <input type="text" id="nameInput" class="nameInput" value="Muhammad Ronaldo" disabled></div>
                             </div>
                             <div class="data-user">
-                                <div class="label">Email</div>
-                                <div class="separator">:</div>
-                                <div class="content">ronaldo@email.com</div>
+                                <div class="label"><label for="emailInput">Email</label></div>
+                                <div class="email-user">: <input type="text" id="emailInput" class="emailInput" value="ronaldo@gmail.com" disabled></div>
                             </div>
                             <div class="data-user">
                                 <div class="label">Jenis Kelamin</div>
-                                <div class="separator">:</div>
-                                <div class="content">Laki-laki</div>
+                                <div class="content">: Laki-laki</div>
                             </div>
                             <div class="data-user">
                                 <div class="label">Tanggal Lahir</div>
-                                <div class="separator">:</div>
-                                <div class="content">01 Januari 2000</div>
+                                <div class="content">: 01 Januari 2000</div>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="edit-con">
+
+                            <div class="edit-profile">
+                                <h3 id="editProfileButton" class="editProfileButton">Edit Profile</h3>
+                            </div>
+
+                            <button class="submit-profile" id="confirmButton" style="display: none;">
+                                <h3>Konfirmasi</h3>
+                            </button>
+
+                        </div>
+                    </form>
 
                     <div class="left-bottom">
                         
@@ -169,6 +201,24 @@
 </footer>
 
 
+<script>
+    // Ambil elemen tombol dan input
+    const editProfileButton = document.getElementById('editProfileButton');
+    const confirmButton = document.getElementById('confirmButton');
+    const nameInput = document.getElementById('nameInput');
+    const emailInput = document.getElementById('emailInput');
+
+    // Tambahkan event listener untuk tombol Edit Profile
+    editProfileButton.addEventListener('click', () => {
+        // Aktifkan input
+        nameInput.disabled = false;
+        emailInput.disabled = false;
+
+        // Tampilkan tombol Konfirmasi
+        confirmButton.style.display = 'block';
+    });
+</script>
+
 
 <script>
     const humMenu = document.querySelector('.hum-menu');
@@ -203,6 +253,7 @@
 </script>
 <script>
     feather.replace();
-</script>    
+</script>   
+<script src="js/link.js"></script> 
 </body>
 </html>
