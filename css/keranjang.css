@@ -37,7 +37,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0;
+    gap: 20px;
     height: 90%;
 }
 
@@ -156,13 +156,171 @@ body{
 
 .baris{
     width: 80%;
+    margin: 60px auto;
+}
+
+.keranjang{
+    width: 100%;
+}
+
+.judul-keranjang{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    margin: 50px auto;
+}
+
+.tabel-keranjang{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    overflow-x: scroll ;
+    scrollbar-width: none;
+}
+
+.baris-tabel{
+    width: 100%;
+    width:1500px ;
+    display: grid;
+    grid-template-columns: 100px 500px 250px 200px 250px auto; 
+    text-align: center;
+    border: 3px solid #062743;
+}
+
+.baris-tabel-con{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    max-height: 80vh;
+    
+}
+
+.baris-tabel.header-tabel{
+    position: sticky;
+    top: 0;
+    padding: 6px;
+    font-size: 18px;
+    background-color: rgb(212, 211, 210);
+    border: 0;
+    
+}
+
+.baris-tabel.header-tabel div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.baris-tabel.header-tabel h3{
+    font-weight: 700;
 }
 
 
+.nama-produk{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    gap: 20px;
+}
 
+.nama-produk-img{
+    width: 150px;
+    height: 80px;
+    overflow: hidden;
+}
 
+.nama-produk-img img{
+    width: 100%;
+    margin-top: -50px;
+    object-fit: cover;
+}
 
+.nama-produk-detail{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: left;
+}
 
+.ceklis input{
+    width: 25px;
+    height: 25px;
+}
+
+.ceklis, .harga-produk, .kuantitas-produk, .total-harga, .Aksi{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ceklis, .harga-produk, .kuantitas-produk, .total-harga, .Aksi{
+    font-size: 18px;
+}
+
+.kuantitas-counter {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.kuantitas-counter button {
+    background-color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.kuantitas-counter button:hover {
+    background-color: #f0f0f0;
+}
+
+.kuantitas-counter .counter {
+    text-align: center;
+    border: none;
+    width: 3rem;
+    font-size: 1.2rem;
+}
+
+.kuantitas-counter button{
+    border: 2px solid black;
+}
+
+.kuantitas-input{
+    text-align: center;
+    height: 49px;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background-color: #062743;
+    color: white;
+    border-radius: 50%;
+    transition: 0.5s;
+}
+
+.delete-btn:hover{
+    transform: scale(1.2);
+}
 
 
 

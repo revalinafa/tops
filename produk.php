@@ -1,6 +1,9 @@
 <?php 
 include "koneksi.php";
 $id = $_GET["id"];
+session_start();
+$nama = $_SESSION["nama"];
+$email = $_SESSION["email"];
 
 $temp = mysqli_query($conn,"select * from detailproduks where id='$id'");
 $hasil = array();
@@ -35,7 +38,7 @@ while ($x = mysqli_fetch_assoc($temp)) {
     <div class="header-container">
 
         <div class="header-left">
-            <h3>TOPS</h3>
+            <a href="home.php"> <h3>TOPS</h3></a> 
         </div>
         
         <div class="header-right">
@@ -50,15 +53,15 @@ while ($x = mysqli_fetch_assoc($temp)) {
             </div>
 
             <div class="header-icon-con">
-                <div class="header-con-item">
+                <div class="header-con-item" id="homecs.php">
                     <i data-feather="headphones"></i>
                     <h3>Customer Service</h3>
                 </div>
-                <div class="header-con-item">
+                <div class="header-con-item" id="keranjang.php">
                     <i data-feather="shopping-cart"></i>
                     <h3>keranjang</h3>
                 </div>
-                <div class="header-con-item">
+                <div class="header-con-item" id="profile.php">
                     <i data-feather="user"></i>
                     <h3>login</h3>
                 </div>
@@ -106,9 +109,15 @@ while ($x = mysqli_fetch_assoc($temp)) {
                         <div class="option">
                             <p>Color</p>
                             <div class="color-option">
-                                <div class="color-box selected" onclick="selectColor(this)">Hitam</div>
-                                <div class="color-box" onclick="selectColor(this)">Putih</div>
-                                <div class="color-box" onclick="selectColor(this)">Abu</div>
+                            <?php
+                                $warna_unik = array_unique(array_column($hasil, "warna"));
+                                $size_unik = array_unique(array_column($hasil, "size"));
+                                
+                            ?>
+                                <?php foreach($warna_unik as $warna) : ?>
+                                    <div class="color-box" onclick="selectColor(this)" data-warna="<?= $warna ?>"><?= $warna ?></div>
+                                <?php endforeach; ?>
+                                
                             </div>
                         </div>
                       
@@ -116,9 +125,9 @@ while ($x = mysqli_fetch_assoc($temp)) {
                         <div class="option">
                             <p>Size</p>
                             <div class="size-grid">
-                                <?php for ($i = 0; $i < count($hasil); $i++): ?>
-                                    <div class="size-box" onclick="selectSize(this)" data-stock="<?= $hasil[$i]["stock"]?>"> <?= $hasil[$i]["size"] ?></div>
-                                <?php endfor; ?>
+                            <?php foreach ($size_unik as $size): ?>
+                                    <div class="size-box" onclick="selectSize(this)" data-size="<?= $size?>"> <?= $size ?></div>
+                                <?php endforeach; ?>
                                 
                                 
                             </div>
@@ -131,7 +140,7 @@ while ($x = mysqli_fetch_assoc($temp)) {
                     </div>
 
                     <div class="produk-action">
-                        <div class="keranjang">
+                        <div class="keranjang" id="keranjang">
                             <i data-feather="shopping-cart"></i>
                         </div>
                         <div class="check-out">
@@ -399,30 +408,103 @@ while ($x = mysqli_fetch_assoc($temp)) {
     feather.replace();
 </script>    
 <script>
-    // Fungsi untuk memilih warna
+
+let selectedColor = null;
+let selectedSize = null;
+
+// Data stok produk (diambil dari PHP dan disimpan di JavaScript)
+const produkData = <?= json_encode($hasil) ?>;
+
 function selectColor(element) {
-  // Hapus class 'selected' dari semua elemen color
-  const colors = document.querySelectorAll(".color-box");
-  colors.forEach((color) => color.classList.remove("selected"));
-  
-  // Tambahkan class 'selected' pada elemen yang diklik
-  element.classList.add("selected");
+    // Hapus class 'selected' dari semua elemen warna
+    const colors = document.querySelectorAll(".color-box");
+    colors.forEach((color) => color.classList.remove("selected"));
+
+    // Tandai elemen warna yang dipilih
+    element.classList.add("selected");
+    selectedColor = element.getAttribute("data-warna");
+
+    // Perbarui stok berdasarkan warna dan ukuran
+    updateStock();
 }
 
-// Fungsi untuk memilih size
 function selectSize(element) {
-  // Hapus class 'selected' dari semua elemen size
-  const sizes = document.querySelectorAll(".size-box");
-  sizes.forEach((size) => size.classList.remove("selected"));
-  
-  // Tambahkan class 'selected' pada elemen yang diklik
-  element.classList.add("selected");
+    // Hapus class 'selected' dari semua elemen ukuran
+    const sizes = document.querySelectorAll(".size-box");
+    sizes.forEach((size) => size.classList.remove("selected"));
 
-  const stock = element.getAttribute('data-stock');
-    // Menampilkan stok di elemen dengan id="stock"
-    document.getElementById('stock').textContent = stock;
+    // Tandai elemen ukuran yang dipilih
+    element.classList.add("selected");
+    selectedSize = element.getAttribute("data-size");
+
+    // Perbarui stok berdasarkan warna dan ukuran
+    updateStock();
 }
 
+function updateStock() {
+    // Pastikan warna dan ukuran telah dipilih
+    if (!selectedColor || !selectedSize) {
+        document.getElementById("stock").textContent = "Please select a size and color.";
+        return;
+    }
+
+    // Cari stok berdasarkan warna dan ukuran
+    const stock = produkData.find(
+        (item) => item.warna === selectedColor && item.size == selectedSize
+    );
+
+    // Perbarui elemen stok
+    if (stock) {
+        document.getElementById("stock").textContent = `${stock.stock}`;
+    } else {
+        document.getElementById("stock").textContent = "Out of stock for this combination.";
+    }
+}
 </script>
+<!-- <script>
+    let keranjang = document.getElementById("keranjang");
+    keranjang.addEventListener("click",tambahkeranjang);
+    let 
+
+    function tambahkeranjang(){
+    }
+</script> -->
+
+
+<script>
+    let keranjang = document.getElementById("keranjang");
+
+    // Fungsi untuk menambah ke keranjang
+    keranjang.addEventListener("click", tambahKeranjang);
+
+    function tambahKeranjang() {
+        // Ambil elemen yang dipilih
+        const warnaSelected = document.querySelector(".color-box.selected");
+        const sizeSelected = document.querySelector(".size-box.selected");
+
+        if (!warnaSelected || !sizeSelected) {
+            alert("Please select a color and size!");
+            return;
+        }
+
+        const warna = warnaSelected.getAttribute("data-warna");
+        const size = sizeSelected.getAttribute("data-size");
+
+        // Kirim data ke server menggunakan AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "tambah_keranjang.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                alert(xhr.responseText);
+            }
+        };
+
+        // Kirim data (nama, email, idproduk, warna, size)
+        xhr.send(`warna=${warna}&size=${size}&idproduk=<?= $id; ?>`);
+    }
+</script>
+<script src="js/link.js"></script>
+
 </body>
 </html>

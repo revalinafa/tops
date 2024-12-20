@@ -1,10 +1,31 @@
 <?php 
 include "koneksi.php";
-$temp = mysqli_query($conn,"select * from produk");
+include "function.php";
+session_start();
+
 $hasil = array ();
-while ($x = mysqli_fetch_assoc($temp)) {
-    array_push($hasil,$x);
+$search_term = isset($_GET['search']) ? $_GET['search'] : '';
+
+if (!empty($search_term)) {
+    $hasil = cari($search_term);  // Perform the search based on the search term
+} else {
+    // If no search term, fetch all products
+    $temp = mysqli_query($conn, "SELECT * FROM produk");
+    while ($x = mysqli_fetch_assoc($temp)) {
+        array_push($hasil, $x);
+    }
 }
+
+// if (isset($_POST["search"])) {
+//     $nama_produk = $_POST["search"];
+//     $hasil = cari($nama_produk);
+// } else {
+//     $temp = mysqli_query($conn,"select * from produk");
+//     while ($x = mysqli_fetch_assoc($temp)) {
+//         array_push($hasil,$x);
+//     }
+// }
+// var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -36,14 +57,16 @@ while ($x = mysqli_fetch_assoc($temp)) {
     <div class="header-container">
 
         <div class="header-left">
-            <h3>TOPS</h3>
+            <a href="home.php"> <h3>TOPS</h3></a> 
         </div>
         
         <div class="header-right">
 
             <div class="search-container">
                 <div class="search-con">
-                    <input type="text" id="search">
+                <form method="GET" action="home.php" id="searchForm">
+    <input type="text" name="search" id="search" placeholder="Search for products" value="<?php echo isset($nama_produk) ? $nama_produk : ''; ?>" oninput="submitForm()">
+</form>
                     <label for="search">
                         <i data-feather="search"></i>
                     </label>
@@ -51,13 +74,13 @@ while ($x = mysqli_fetch_assoc($temp)) {
             </div>
 
             <div class="header-icon-con">
-                <div class="header-con-item">
+                <div class="header-con-item" id="homecs.php">
                     <i data-feather="headphones"></i>
                 </div>
-                <div class="header-con-item">
+                <div class="header-con-item" id="keranjang.php">
                     <i data-feather="shopping-cart"></i>
                 </div>
-                <div class="header-con-item">
+                <div class="header-con-item" id="profile.php">
                     <i data-feather="user"></i>
                 </div>
             </div>
@@ -93,7 +116,7 @@ while ($x = mysqli_fetch_assoc($temp)) {
                             <div class="card">
                             <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
                             <h3><?= $hasil[$i]["nama"] ?></h3>
-                            <h4><?= $hasil[$i]["harga"] ?></h4>
+                            <h4><?= formatRupiah($hasil[$i]["harga"]) ?></h4>
                         </div>
                         <?php endfor; ?>
 
@@ -156,7 +179,7 @@ while ($x = mysqli_fetch_assoc($temp)) {
              data-name="<?= $hasil[$i]['nama'] ?>" >
                         <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/32b0f17a-38ba-40fa-9de7-31c5bb1661e3/AIR+JORDAN+1+LOW.png" alt="">
                         <h3> <?= $hasil[$i]["nama"] ?> </h3>
-                        <h4> <?= $hasil[$i]["harga"] ?> </h4>
+                        <h4><?= formatRupiah($hasil[$i]["harga"]) ?> </h4>
                     </div>
                 <?php endfor; ?>  
                 </div>
@@ -256,5 +279,14 @@ while ($x = mysqli_fetch_assoc($temp)) {
         }
     });
 </script>    
+<script src="js/link.js"></script>
+<script>
+    function submitForm() {
+        var searchTerm = document.getElementById('search').value;
+        if (event.key == "Enter") {  // Only submit if 3 or more characters
+            document.getElementById('searchForm').submit();
+        }
+    }
+</script>
 </body>
 </html>

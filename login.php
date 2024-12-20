@@ -12,7 +12,7 @@ if (isset($_POST['login'])) {
         exit();
     }
 
-    $query = "SELECT password FROM user WHERE nama='$username' or email='$username'";
+    $query = "SELECT nama,email,password FROM user WHERE nama='$username' or email='$username'";
     $result = mysqli_query($conn, $query);
     
     if ($result) {
@@ -20,10 +20,11 @@ if (isset($_POST['login'])) {
         if ($result2) {
             if ($result2["password"] == $password) {
              
-                header("Location: home.php");
-                session_start();
-                $_SESSION["username"]=$_POST["username"];
-                exit();
+              session_start();
+              $_SESSION["nama"]=$result2["nama"];
+              $_SESSION["email"]=$result2["email"];
+              header("Location: home.php");
+              exit();
             } else {
                 echo "<script> alert('Invalid password!'); </script>";
             }

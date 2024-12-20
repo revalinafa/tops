@@ -1,3 +1,24 @@
+<?php 
+include "koneksi.php";
+include "function.php";
+session_start();
+$nama = $_SESSION["nama"];
+$email = $_SESSION["email"];
+$query = " select a.*, b.harga,b.nama as nama_produk from keranjang a join produk b on a.idproduk = b.id where a.nama='$nama' and a.email='$email'";
+// $temp = mysqli_query($conn,"select * from keranjang where nama='$nama' and email='$email'");
+$temp = mysqli_query($conn,$query);
+$hasil = array();
+while ($x = mysqli_fetch_assoc($temp)) {
+    array_push($hasil,$x);
+}
+
+// $hasil = array ();
+if (isset($_POST["search"])) {
+    header("Location: home.php");
+} 
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +27,8 @@
     <title>Document</title>
     
     <!--LINK CSS NYA-->
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/keranjang.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/keranjang.css">
 
     <!--LINK FONT GOOGLE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,14 +45,16 @@
     <div class="header-container">
 
         <div class="header-left">
-            <h3>TOPS</h3>
+            <a href="home.php"> <h3>TOPS</h3></a> 
         </div>
         
         <div class="header-right">
 
             <div class="search-container">
-                <div class="search-con">
-                    <input type="text" id="search">
+            <div class="search-con">
+                <form method="GET" action="home.php" id="searchForm">
+    <input type="text" name="search" id="search" placeholder="Search for products" value="<?php echo isset($nama_produk) ? $nama_produk : ''; ?>" oninput="submitForm()">
+</form>
                     <label for="search">
                         <i data-feather="search"></i>
                     </label>
@@ -39,15 +62,15 @@
             </div>
 
             <div class="header-icon-con">
-                <div class="header-con-item">
+                <div class="header-con-item" id="homecs.php">
                     <i data-feather="headphones"></i>
                     <h3>Customer Service</h3>
                 </div>
-                <div class="header-con-item">
+                <div class="header-con-item" id="keranjang.php">
                     <i data-feather="shopping-cart"></i>
                     <h3>keranjang</h3>
                 </div>
-                <div class="header-con-item">
+                <div class="header-con-item" id="profile.php">
                     <i data-feather="user"></i>
                     <h3>login</h3>
                 </div>
@@ -90,151 +113,36 @@
 
                 <div class="baris-tabel-con">
 
-                    <div class="baris-tabel">
-                        <div class="ceklis"><input type="checkbox"></div>
-                        <div class="nama-produk">
-                            <div class="nama-produk-img">
-                                <img src="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/20547d52-3e1b-4c3d-b917-f0d7e0eb8bdf/custom-nike-air-force-1-low-by-you-shoes.png" alt="">
-                            </div>
-                            <div class="nama-produk-detail">
-                                <h3>Nike Air Force 1 Low</h3>
-                                <h3>Black , 42</h3>
-                            </div>
-                        </div>
-                        <div class="harga-produk">Rp1.999.999,-</div>
-                        <div class="kuantitas-produk">
-                            <div class="kuantitas-counter">
-                                <button type="button" class="btn-decrease">-</button>
-                                <div class="kuantitas-input">
-                                    <input type="number" class="counter" value="1" min="0" max="99">
+                    <?php foreach($hasil as $x): ?>
+                        <div class="baris-tabel">
+                            <div class="ceklis"><input type="checkbox"></div>
+                            <div class="nama-produk">
+                                <div class="nama-produk-img">
+                                    <img src="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/20547d52-3e1b-4c3d-b917-f0d7e0eb8bdf/custom-nike-air-force-1-low-by-you-shoes.png" alt="">
                                 </div>
-                                <button type="button" class="btn-increase">+</button>
-                            </div>
-                        </div>
-                        <div class="total-harga">Rp1.999.999,-</div>
-                        <div class="Aksi">
-                            <div class="delete-btn">
-                                <i data-feather="trash-2"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="baris-tabel">
-                        <div class="ceklis"><input type="checkbox"></div>
-                        <div class="nama-produk">
-                            <div class="nama-produk-img">
-                                <img src="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/20547d52-3e1b-4c3d-b917-f0d7e0eb8bdf/custom-nike-air-force-1-low-by-you-shoes.png" alt="">
-                            </div>
-                            <div class="nama-produk-detail">
-                                <h3>Nike Air Force 1 Low</h3>
-                                <h3>Black , 42</h3>
-                            </div>
-                        </div>
-                        <div class="harga-produk">Rp1.999.999,-</div>
-                        <div class="kuantitas-produk">
-                            <div class="kuantitas-counter">
-                                <button type="button" class="btn-decrease">-</button>
-                                <div class="kuantitas-input">
-                                    <input type="number" class="counter" value="1" min="0" max="10">
+                                <div class="nama-produk-detail">
+                                    <h3><?= $x["nama_produk"] ?></h3>
+                                    <h3> <?= $x["warna"]?>, <?= $x["size"] ?> </h3>
                                 </div>
-                                <button type="button" class="btn-increase">+</button>
                             </div>
-                        </div>
-                        <div class="total-harga">Rp1.999.999,-</div>
-                        <div class="Aksi">
-                            <div class="delete-btn">
-                                <i data-feather="trash-2"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="baris-tabel">
-                        <div class="ceklis"><input type="checkbox"></div>
-                        <div class="nama-produk">
-                            <div class="nama-produk-img">
-                                <img src="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/20547d52-3e1b-4c3d-b917-f0d7e0eb8bdf/custom-nike-air-force-1-low-by-you-shoes.png" alt="">
-                            </div>
-                            <div class="nama-produk-detail">
-                                <h3>Nike Air Force 1 Low</h3>
-                                <h3>Black , 42</h3>
-                            </div>
-                        </div>
-                        <div class="harga-produk">Rp1.999.999,-</div>
-                        <div class="kuantitas-produk">
-                            <div class="kuantitas-counter">
-                                <button type="button" class="btn-decrease">-</button>
-                                <div class="kuantitas-input">
-                                    <input type="number" class="counter" value="1" min="0" max="10">
+                            <div class="harga-produk"> <?= formatRupiah($x["harga"]) ?> </div>
+                            <div class="kuantitas-produk">
+                                <div class="kuantitas-counter">
+                                    <button type="button" class="btn-decrease">-</button>
+                                    <div class="kuantitas-input">
+                                        <input type="number" class="counter" value="1" min="0" max="10">
+                                    </div>
+                                    <button type="button" class="btn-increase">+</button>
                                 </div>
-                                <button type="button" class="btn-increase">+</button>
                             </div>
-                        </div>
-                        <div class="total-harga">Rp1.999.999,-</div>
-                        <div class="Aksi">
-                            <div class="delete-btn">
-                                <i data-feather="trash-2"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="baris-tabel">
-                        <div class="ceklis"><input type="checkbox"></div>
-                        <div class="nama-produk">
-                            <div class="nama-produk-img">
-                                <img src="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/20547d52-3e1b-4c3d-b917-f0d7e0eb8bdf/custom-nike-air-force-1-low-by-you-shoes.png" alt="">
-                            </div>
-                            <div class="nama-produk-detail">
-                                <h3>Nike Air Force 1 Low</h3>
-                                <h3>Black , 42</h3>
-                            </div>
-                        </div>
-                        <div class="harga-produk">Rp1.999.999,-</div>
-                        <div class="kuantitas-produk">
-                            <div class="kuantitas-counter">
-                                <button type="button" class="btn-decrease">-</button>
-                                <div class="kuantitas-input">
-                                    <input type="number" class="counter" value="1" min="0" max="10">
+                            <div class="total-harga"> <?= $x["harga"] ?> </div>
+                            <div class="Aksi">
+                                <div class="delete-btn">
+                                    <i data-feather="trash-2"></i>
                                 </div>
-                                <button type="button" class="btn-increase">+</button>
                             </div>
                         </div>
-                        <div class="total-harga">Rp1.999.999,-</div>
-                        <div class="Aksi">
-                            <div class="delete-btn">
-                                <i data-feather="trash-2"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="baris-tabel">
-                        <div class="ceklis"><input type="checkbox"></div>
-                        <div class="nama-produk">
-                            <div class="nama-produk-img">
-                                <img src="https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/20547d52-3e1b-4c3d-b917-f0d7e0eb8bdf/custom-nike-air-force-1-low-by-you-shoes.png" alt="">
-                            </div>
-                            <div class="nama-produk-detail">
-                                <h3>Nike Air Force 1 Low</h3>
-                                <h3>Black , 42</h3>
-                            </div>
-                        </div>
-                        <div class="harga-produk">Rp1.999.999,-</div>
-                        <div class="kuantitas-produk">
-                            <div class="kuantitas-counter">
-                                <button type="button" class="btn-decrease">-</button>
-                                <div class="kuantitas-input">
-                                    <input type="number" class="counter" value="1" min="0" max="10">
-                                </div>
-                                <button type="button" class="btn-increase">+</button>
-                            </div>
-                        </div>
-                        <div class="total-harga">Rp1.999.999,-</div>
-                        <div class="Aksi">
-                            <div class="delete-btn">
-                                <i data-feather="trash-2"></i>
-                            </div>
-                        </div>
-                    </div>
-
+                    <?php endforeach; ?>
 
                 </div>
 
@@ -335,5 +243,6 @@
 <script>
     feather.replace();
 </script>    
+<script src="link.js"></script>
 </body>
 </html>

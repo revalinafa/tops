@@ -25,3 +25,16 @@ insert into warna values ("NK001", "Hitam"),("NK001", "Putih"),("NK001", "Abu");
 insert into ukuran values ("NK001", "Hitam", "25"), ("NK001", "Hitam", "26"),("NK001", "Hitam", "27");
 
 create view detailproduks as select a.*, b.warna, b.size, b.stock from lihatproduk a join ukuran b on a.id = b.idproduk;
+
+create table keranjang (
+ nama varchar(50),
+ email varchar(50),
+ idproduk char(5),
+ warna varchar(20),
+ size char(2),
+ primary key (nama,email,idproduk,warna,size),
+ foreign key (nama,email) references user(nama,email),
+ foreign key (idproduk,warna,size) references ukuran(idproduk,warna,size)
+ );
+
+ select a.*, b.harga from keranjang a join produk b on a.idproduk = b.id;
